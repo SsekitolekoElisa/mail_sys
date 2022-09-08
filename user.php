@@ -26,15 +26,16 @@ if(isset($_POST['submit']))
      $execute_query = mysqli_query($con, $insert_query);
 
     if (!$execute_query == true) {
-        echo "1 record added";
+        die('Error:' . mysqli_error($con));
+       
         
     } else{
-        die('Error:' . mysqli_error($con));
+        echo "1 record added";
        
     }
        
 }
-mysqli_close($con);
+//mysqli_close($con);
 
 
 

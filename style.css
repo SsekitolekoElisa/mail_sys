@@ -119,3 +119,15 @@ div h2 {
 .my_table{
     align-self: auto;
 }
+
+.footer-user {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #db0000;
+    color: white;
+    text-align: right;
+    height: 35px;
+}
+

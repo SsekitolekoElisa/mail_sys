@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +35,7 @@
     <div class="container-fluid">
 
 
-    <nav class="navbar nav-expand-sm bg-danger fixed-top navColor">
+        <nav class="navbar nav-expand-sm bg-danger fixed-top navColor">
             <div class="container-fluid ">
                 <span style="font-size:30px;cursor:pointer" onclick="openNav();">&#9776; Menu</span>
                 <ul style="list-style-type: none;padding: 0px;" class="nav-bar">
@@ -69,34 +68,28 @@
         <!-- <a class="active" href="#home">Home</a> -->
         <button class=" btn-close " style="padding-right: 40px; color: #fff;" onclick="closeNav();"></button><span style="font-size: 20px;">close menu</span>
         <a href="admin.php" class="active"> <span style="min-width:30px ;"></span><i class='bx bxs-dashboard'>
-                </i> <span style=" margin:4px"> Darshboard</a></span>
+            </i> <span style=" margin:4px"> Darshboard</a></span>
         <a href="createUser.php">
             <span><i class='bx bxs-user-account'></i>
             </span> <span style=" margin:4px"> Create user account</a>
-       <div class="nav-item Delivery Progressdropdown">
-            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i
-                        class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span> 
+        <div class="nav-item Delivery Progressdropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span>
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Kampala Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Kampala Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Entebbe Branch
+                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span class="text-dark fw-bold"></span>Entebbe Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></i></span>Jinja Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Jinja Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></i></span>Gulu Branch
+                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Gulu Branch
 
                     </a>
                 </li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Mbarara Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Mbarara Branch
                     </a></li>
             </ul>
         </div>
@@ -107,16 +100,19 @@
         <a href="clientsRecords.php" role="button"><span></span><i class='bx bxs-contact'></i></span> <span style=" margin:4px">Clients</a>
         <a href="staffRecords.php"><span><i class='bx bxs-user-detail'></span></i> <span style=" margin:4px">Staff</a>
         <div class="nav-item Delivery Progressdropdown">
-            <a class="nav-link dropdown-toggle "  role="button" data-bs-toggle="dropdown"><span><i class='bx bxs-package'></i></span> <span style=" margin:4px">Delivery Progress
+            <a class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown"><span><i class='bx bxs-package'></i></span> <span style=" margin:4px">Delivery Progress
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
-                <li><a id="drop" class="dropdown-item " href="delayed_mail.php"><span><i class='bx bxs-user-minus'></i></span></span>Delivered
+                <li><a id="drop" class="dropdown-item " href="delayed_mail.php"><span><i class='bx bxs-user-minus'></i></span></span>Delayed
+                        undelivered
                         mail </a></li>
                 <li><a id="drop" class="dropdown-item  " href="undeliveredMails.php"><span><i class='bx bxs-user-x'></i></span>Undelivered
                         mails
                     </a>
                 </li>
-                
+                <li><a id="drop" class="dropdown-item " href="returnedMails.php"><span><i class='bx bxs-user-minus'></i></span>Returned
+                        undelivered
+                        mail </a></li>
             </ul>
         </div>
         </a>
@@ -131,16 +127,56 @@
             <div class="card-header">
                 <h4>POSTA UGANDA
                 </h4>
-                <h3>Undelivered Mails</h3>
+                <h3>Add Client</h3>
             </div>
         </div>
-        
+        <div>
+            <form action="user.php" method="post">
+                <table>
+                    <tr>
+                        <td>
+                    <tr>
+                        <td>First name :</td>
+                        <td><input type="text" name="fname" id="name1"></td>
+                    </tr>
+
+                    <tr>
+                        <td>Last name :</td>
+                        <td><input type="text" name="lname" id="name2"></td>
+                    </tr>
+
+                    <tr>
+
+                        <td>Gender :</td>
+                        <td>
+                            <input type="radio" name="gender" value="M">Male <br>
+                            <input type="radio" name="gender" value="F">Female
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Email :</td>
+                        <td><input type="email" name="email" id="EMAIL"></td>
+                    </tr>
+                    <tr>
+                        <td>Tellphone Number :</td>
+                        <td><input type="phone number" name="telnumber" id="TellNo"></td>
+                    </tr>
+
+
+
+                </table>
+                <button type="reset" name="reset" value="reset">RESET</button>
+                <button type="submit" name="submit" value="submit">SUBMIT</button>
+            </form>
+        </div>
+
     </div>
+    
     <footer class="footer-user">
 
-<p style="text-align:center; margin-right: 4%; font-size: 14px; margin-top: 6px;">Postal Uganda system © 2022</p>
+        <p style="text-align:center; margin-right: 4%; font-size: 14px; margin-top: 6px;">Postal Uganda system © 2022</p>
 
-</footer>
-</body>
+    </footer>
+   
 
 </html>
