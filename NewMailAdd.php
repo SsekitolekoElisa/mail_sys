@@ -110,13 +110,20 @@
             <a class="nav-link dropdown-toggle "  role="button" data-bs-toggle="dropdown"><span><i class='bx bxs-package'></i></span> <span style=" margin:4px">Delivery Progress
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
-                <li><a id="drop" class="dropdown-item " href="delayed_mail.php"><span><i class='bx bxs-user-minus'></i></span></span> Delivered
-                        mail </a></li>
-                <li><a id="drop" class="dropdown-item  " href="undeliveredMails.php"><span><i class='bx bxs-user-x'></i></span>Undelivered
+                <li><a id="drop" class="dropdown-item  " href="deliveredMails.php"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, );transform: msFilter ; margin:4px">
+                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                <path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path>
+            </svg></span>
+                Delivered
                         mails
                     </a>
                 </li>
-              
+                <li><a id="drop" class="dropdown-item " href="undeliveredMails.php"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: msFilter;">
+                    <path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z">
+
+                </path><path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"></path></svg></span>
+                        Undelivered
+                        mail </a></li>
             </ul>
         </div>
         </a>
@@ -154,7 +161,7 @@
                     </tr>
 
                     <tr>
-                        <td>Branch :</td><br>
+                        <td>Branch code:</td><br>
                         <td><input type="text" name="branch" id="branch"></td>
                         
                     </tr>

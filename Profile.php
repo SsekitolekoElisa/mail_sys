@@ -31,7 +31,7 @@ a {
 
         <nav class="navbar nav-expand-sm bg-danger fixed-top navColor">
             <div class="container-fluid ">
-                <a href="admin.php"><span style="font-size:30px;cursor:pointer" >&#9776; Menu</span></a>
+                <a href="courier.php"><span style="font-size:30px;cursor:pointer" >&#9776; Menu</span></a>
                 <ul style="list-style-type: none;padding: 0px;" class="nav-bar">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span class="text-white mx-2">Ahimbisibwe Job</span><img src="../images/img_avatar1.png" alt="profile image" style="width: 40px;" class="rounded-pill "></a><span class="glyphicon glyphicon-align-justify"></span>
@@ -40,7 +40,7 @@ a {
 
                             </li>
                             <li><a class="dropdown-item  glyphicon glyphicon-log-in" href="Profile.php"><i class='bx bxs-user-detail'></i>Profile</a></li>
-                            <li><a class="dropdown-item glyphicon glyphicon-user" href="logOut.php"><i class='bx bx-log-out'>Log
+                            <li><a class="dropdown-item glyphicon glyphicon-user" href="../logOut.php"><i class='bx bx-log-out'>Log
                                         out</i></a></li>
                         </ul>
                     </li>
@@ -66,7 +66,7 @@ a {
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="admin.php">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="courier.php">Dashboard</a></li>
               <li class="breadcrumb-item"><a href="Profile.php">Account Profile</a></li>
             </ol>
           </div><!-- /.col -->

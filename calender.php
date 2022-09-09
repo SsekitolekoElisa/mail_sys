@@ -92,10 +92,10 @@
                 <path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z">
 
                 </path>
-            </svg>Delivered Mail
+            </svg>Undelivered Mail
 
         </a>
-        <a href="#about"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(225, 225, 225, 225);transform: msFilter; margin:4px">
+        <a href="calender" ></a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(225, 225, 225, 225);transform: msFilter; margin:4px">
                 <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"></path>
                 <path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z"></path>
             </svg>Calender
@@ -109,12 +109,12 @@
     <!-- Page content -->
     <div class="   content align-content-center container  " id="mycontent" style="float: right; margin: 30px; padding: 70px; width: 1250px; background-color:#fff ;">
         <!-- Page content -->
-       
+        <div class=" container ">
             <div class="col-sm-9">
                 <div class="card-header">
                     <h4>Dashboard</h4>
-                    <p>log</p>
-               
+                    <p>Calender</p>
+                </div>
 
 
             </div>

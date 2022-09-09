@@ -1,9 +1,9 @@
 <?php
 include 'mail_DB_connect.php';
 
-$retrieve_query = "select*from client";
+$retrieve_query = "SELECT client.boxnumber,client.clientNo,client.fname,client.lname,client.telnumber, mail.addedTime FROM client inner join mail on client.clientNo=mail.clientNo where deliTimedate is null;";
 
-$execute_query = mysqli_query($connect, $retrieve_query);
+$execute_query = mysqli_query($con, $retrieve_query);
 
 $fetch = mysqli_fetch_assoc($execute_query);
 ?>
@@ -20,8 +20,7 @@ $fetch = mysqli_fetch_assoc($execute_query);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- javaSCRIPT bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="style.css">
+
     <!-- Boxiocns CND link -->
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <script>
@@ -29,51 +28,66 @@ $fetch = mysqli_fetch_assoc($execute_query);
 
 </head>
 
-<body class="body">
+<body>
+    <div class="container">
+        <table class="  table table-bordered">
+            <thead>
+                <tr class="table-bordered">
+                    <td rowspan="2">P.O Box</td>
+                    <td colspan="4">Recipient</td>
+                    <td rowspan="2">Added Time</td>
+                    <td rowspan="2">Confirmation</td>
+                </tr>
+                <!-- <tr>
+                <hr>
+            </tr> -->
 
-    <table width="100%" border="1px" align="center">
-    
-            <tr>
-                <td height="20">
-                    <table width="75%" align="center" class="table table-striped">
-                        <tbody>
-                            <h2 align="center">Client's Records</h2>
-                            <tr bgcolor="#1367EA" class="tr">
-                                <td>Client No.</td>
-                                <td>First Name </td>
-                                <td>Last Name </td>
-                                <td>Phone Number </td>
-                                <td> Preference Type</td>
-                                <td> Maximum Rent</td>
-                                <td>Email Address</td>
-                            </tr>
-                            <?php
-
-                            while ($fetch = mysqli_fetch_assoc($execute_query)) { ?>
-                                <tr bgcolor="#d9dbdb">
-                                    <td><?php echo $fetch['clientNo']; ?></td>
-                                    <td><?php echo $fetch['fName']; ?></td>
-                                    <td><?php echo $fetch['lName']; ?></td>
-                                    <td><?php echo $fetch['telNo']; ?></td>
-                                    <td><?php echo $fetch['prefType']; ?></td>
-                                    <td><?php echo $fetch['maxRent']; ?></td>
-                                    <td><?php echo $fetch['email']; ?></td>
-                                </tr>
-                            <?php } ?>
+                <tr>
+                    <td>Client Id</td>
+                    <td>lname</td>
+                    <td>first name</td>
+                    <td>Phone number</td>
+                </tr>
+            </thead>
+            <tbody>
 
 
-                    </table>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
-                    <p>&nbsp;</p>
-            </tr>
-        </tbody>
-        <tbody>
-        </tbody>
-    </table>
+                <!--  -->
+
+                <?php
+
+                while ($fetch = mysqli_fetch_assoc($execute_query)) { ?>
+                    <tr bgcolor="#d9dbdb">
+                        <td><?php echo $fetch['boxnumber']; ?></td>
+                        <td><?php echo $fetch['clientNo']; ?></td>
+                        <td><?php echo $fetch['fname']; ?></td>
+                        <td><?php echo $fetch['lname']; ?></td>
+                        <td>0<?php echo $fetch['telnumber']; ?></td>
+                        <td><?php echo $fetch['addedTime']; ?></td>
+                    
+                        <td><button type="submit" class="text-uppercase text-white text-sm w100 fw-normal btn btn-success btn3-sm" name="submit">confirm</button> </td>
+                    </tr>
+                <?php } ?>
+
+
+
+            </tbody>
+
+
+        </table>
+
+    </div>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+    <p>&nbsp;</p>
+
+
+
+
+
     <table width="100%" border="1">
         <tbody>
             <tr>

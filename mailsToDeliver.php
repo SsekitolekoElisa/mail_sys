@@ -1,3 +1,12 @@
+<?php
+include 'mail_DB_connect.php';
+
+$retrieve_query = "select mail.addedTime,mail.clientNo,mail.outTimedate, mail.mail_id, client.boxnumber from mail inner join client on mail.clientNo=client.clientNo where deliTimedate is NULL order by addedTime";
+
+$execute_query = mysqli_query($con, $retrieve_query);
+
+$fetch = mysqli_fetch_assoc($execute_query);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,7 +50,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span class="text-white mx-2">Ahimbisibwe Job</span><img src="../images/img_avatar1.png" alt="profile image" style="width: 40px;" class="rounded-pill "></a><span class="glyphicon glyphicon-align-justify"></span>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item glyphicon glyphicon-das " href="admin.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: msFilter; margin:4px">
+                            <li><a class="dropdown-item glyphicon glyphicon-das " href="courier.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: msFilter; margin:4px">
                                         <path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path>
                                     </svg>Darshboard</a>
 
@@ -49,7 +58,7 @@
                             <li><a class="dropdown-item  glyphicon glyphicon-log-in" href="Profile.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: msFilter ; margin:4px">
                                         <path d="M15 11h7v2h-7zm1 4h6v2h-6zm-2-8h8v2h-8zM4 19h10v-1c0-2.757-2.243-5-5-5H7c-2.757 0-5 2.243-5 5v1h2zm4-7c1.995 0 3.5-1.505 3.5-3.5S9.995 5 8 5 4.5 6.505 4.5 8.5 6.005 12 8 12z"></path>
                                     </svg>Profile</a></li>
-                            <li><a class="dropdown-item glyphicon glyphicon-user" href="logOut.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: msFilter; margin:4px">
+                            <li><a class="dropdown-item glyphicon glyphicon-user" href="../logOut.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: msFilter; margin:4px">
                                         <path d="M16 13v-2H7V8l-5 4 5 4v-3z"></path>
                                         <path d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2z"></path>
                                     </svg>Log
@@ -79,29 +88,28 @@
             </svg>Mails to deliver
 
         </a>
-        <a href="#new mails"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(225, 225, 225, 225);transform: msFilter ; margin:4px">
+        <a href="confirmDelivery.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(225, 225, 225, 225);transform: msFilter ; margin:4px">
                 <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
                 <path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path>
             </svg>Confirm Delivery
 
         </a>
-        <a href="#Clients" role="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(225, 225, 225, 225);transform: msFilter; margin:4px">
+        <a href="deliveredMails.php" role="button"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(225, 225, 225, 225);transform: msFilter; margin:4px">
                 <path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z">
 
                 </path>
                 <path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z">
 
                 </path>
-            </svg>Undelivered Mail
+            </svg>Delivered Mail
 
         </a>
-        <a href="#about"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(225, 225, 225, 225);transform: msFilter; margin:4px">
+        <a href="calender.php"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(225, 225, 225, 225);transform: msFilter; margin:4px">
                 <path d="M7 11h2v2H7zm0 4h2v2H7zm4-4h2v2h-2zm0 4h2v2h-2zm4-4h2v2h-2zm0 4h2v2h-2z"></path>
                 <path d="M5 22h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2h-2V2h-2v2H9V2H7v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2zM19 8l.001 12H5V8h14z"></path>
             </svg>Calender
         </a>
-        <a class="nav-link " href="#about"></a>
-        </ul>
+       
 
 
     </div>
@@ -119,6 +127,52 @@
 
 
             </div>
+        </div>
+
+        <div>
+        <table width="70%"  align="center">
+    
+    <tr>
+        <td height="20">
+            <table width="75%" align="center" class="table table-striped table-hover">
+                <tbody>
+                    <h2 align="center">Client's Records</h2>
+                    <tr bgcolor="#1367EA" class="tr">
+
+                        <td  bgcolor="#1367EA" class="text-white">mail_id </td>
+                        <td  bgcolor="#1367EA" class="text-white">Added Time</td>
+                        <td  bgcolor="#1367EA" class="text-white">Pick up</td>
+                        <td  bgcolor="#1367EA" class="text-white">Client</td>
+                        <td  bgcolor="#1367EA" class="text-white">P.O BOX</td>
+                       
+                        
+                    </tr>
+                    <?php
+
+                    while ($fetch = mysqli_fetch_assoc($execute_query)) { ?>
+                        <tr bgcolor="#d9dbdb">
+                            <td><?php echo $fetch['mail_id']; ?></td>
+                            <td><?php echo $fetch['addedTime']; ?></td>
+                            <td><?php echo $fetch['outTimedate']; ?></td>
+                            <td>CT<?php echo $fetch['clientNo']; ?></td>
+                            <td><?php echo $fetch['boxnumber']; ?></td>
+                            
+                        </tr>
+                    <?php } ?>
+                    
+
+            </table>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+    </tr>
+</tbody>
+<tbody>
+</tbody>
+</table>
         </div>
         <footer class="footer-user">
 
