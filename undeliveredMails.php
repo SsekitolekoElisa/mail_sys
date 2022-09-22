@@ -1,5 +1,9 @@
 <?php
+include "../Check.php";
+$_SESSION['USERNAME']=check_login($con);
+session_start();
 include 'mail_DB_connect.php';
+session_start();
 
 $retrieve_query = "select mail.addedTime,mail.clientNo,mail.outTimedate, mail.mail_id, client.boxnumber from mail inner join client on mail.clientNo=client.clientNo where deliTimedate is NULL order by addedTime";
 
@@ -44,7 +48,7 @@ $fetch = mysqli_fetch_assoc($execute_query);
     <div class="container-fluid">
 
 
-    <nav class="navbar nav-expand-sm bg-danger fixed-top navColor">
+        <nav class="navbar nav-expand-sm bg-danger fixed-top navColor">
             <div class="container-fluid ">
                 <span style="font-size:30px;cursor:pointer" onclick="openNav();">&#9776; Menu</span>
                 <ul style="list-style-type: none;padding: 0px;" class="nav-bar">
@@ -77,34 +81,28 @@ $fetch = mysqli_fetch_assoc($execute_query);
         <!-- <a class="active" href="#home">Home</a> -->
         <button class=" btn-close " style="padding-right: 40px; color: #fff;" onclick="closeNav();"></button><span style="font-size: 20px;">close menu</span>
         <a href="admin.php" class="active"> <span style="min-width:30px ;"></span><i class='bx bxs-dashboard'>
-                </i> <span style=" margin:4px"> Darshboard</a></span>
+            </i> <span style=" margin:4px"> Darshboard</a></span>
         <a href="createUser.php">
             <span><i class='bx bxs-user-account'></i>
             </span> <span style=" margin:4px"> Create user account</a>
-       <div class="nav-item Delivery Progressdropdown">
-            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i
-                        class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span> 
+        <div class="nav-item Delivery Progressdropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span>
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Kampala Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Kampala Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Entebbe Branch
+                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span class="text-dark fw-bold"></span>Entebbe Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></i></span>Jinja Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Jinja Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></i></span>Gulu Branch
+                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Gulu Branch
 
                     </a>
                 </li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Mbarara Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Mbarara Branch
                     </a></li>
             </ul>
         </div>
@@ -115,21 +113,23 @@ $fetch = mysqli_fetch_assoc($execute_query);
         <a href="clientsRecords.php" role="button"><span></span><i class='bx bxs-contact'></i></span> <span style=" margin:4px">Clients</a>
         <a href="staffRecords.php"><span><i class='bx bxs-user-detail'></span></i> <span style=" margin:4px">Staff</a>
         <div class="nav-item Delivery Progressdropdown">
-            <a class="nav-link dropdown-toggle "  role="button" data-bs-toggle="dropdown"><span><i class='bx bxs-package'></i></span> <span style=" margin:4px">Delivery Progress
+            <a class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown"><span><i class='bx bxs-package'></i></span> <span style=" margin:4px">Delivery Progress
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
                 <li><a id="drop" class="dropdown-item  " href="deliveredMails.php"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, );transform: msFilter ; margin:4px">
-                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
-                <path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path>
-            </svg></span>
-                Delivered
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                <path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path>
+                            </svg></span>
+                        Delivered
                         mails
                     </a>
                 </li>
                 <li><a id="drop" class="dropdown-item " href="undeliveredMails.php"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: msFilter;">
-                    <path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z">
+                                <path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z">
 
-                </path><path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"></path></svg></span>
+                                </path>
+                                <path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"></path>
+                            </svg></span>
                         Undelivered
                         mail </a></li>
             </ul>
@@ -137,6 +137,7 @@ $fetch = mysqli_fetch_assoc($execute_query);
         </a>
 
     </div>
+
 
 
 
@@ -149,55 +150,43 @@ $fetch = mysqli_fetch_assoc($execute_query);
                 <h3>Undelivered Mails</h3>
             </div>
         </div>
-        <div class="   content align-content-center container  " id="mycontent" style="float: right; margin: 30px; padding: 70px; width: 1250px; background-color:#fff ;">
-        <!-- Page content -->
 
-        <div>
-       
-            <table width="75%" align="center" class="table table-striped table-hover">
-                <tbody>
-                  
-                    <tr bgcolor="#1367EA" class="tr">
+        <table width="75%" align="center" class="table table-striped table-hover">
+            <tbody>
 
-                        <td  bgcolor="#1367EA">mail_id </td>
-                        <td  bgcolor="#1367EA" >Added Time</td>
-                        <td  bgcolor="#1367EA">Pick up</td>
-                        <td  bgcolor="#1367EA" >Client</td>
-                        <td  bgcolor="#1367EA">P.O BOX</td>
-                       
-                        
+                <tr bgcolor="#1367EA" class="tr">
+
+                    <td bgcolor="#1367EA">mail_id </td>
+                    <td bgcolor="#1367EA">Added Time</td>
+                    <td bgcolor="#1367EA">Pick up</td>
+                    <td bgcolor="#1367EA">Client</td>
+                    <td bgcolor="#1367EA">P.O BOX</td>
+
+
+                </tr>
+                <?php
+
+                while ($fetch = mysqli_fetch_assoc($execute_query)) { ?>
+                    <tr bgcolor="#d9dbdb">
+                        <td><?php echo $fetch['mail_id']; ?></td>
+                        <td><?php echo $fetch['addedTime']; ?></td>
+                        <td><?php echo $fetch['outTimedate']; ?></td>
+                        <td>CT<?php echo $fetch['clientNo']; ?></td>
+                        <td><?php echo $fetch['boxnumber']; ?></td>
+
                     </tr>
-                    <?php
+                <?php } ?>
 
-                    while ($fetch = mysqli_fetch_assoc($execute_query)) { ?>
-                        <tr bgcolor="#d9dbdb">
-                            <td><?php echo $fetch['mail_id']; ?></td>
-                            <td><?php echo $fetch['addedTime']; ?></td>
-                            <td><?php echo $fetch['outTimedate']; ?></td>
-                            <td>CT<?php echo $fetch['clientNo']; ?></td>
-                            <td><?php echo $fetch['boxnumber']; ?></td>
-                            
-                        </tr>
-                    <?php } ?>
-                    
+            </tbody>
+        </table>
+        <div>
 
-            </table>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-            <p>&nbsp;</p>
-    >
-</tbody>
-</table>
         </div>
-    </div>
-    <footer class="footer-user">
+        <footer class="footer-user">
 
-<p style="text-align:center; margin-right: 4%; font-size: 14px; margin-top: 6px;">Postal Uganda system © 2022</p>
+            <p style="text-align:center; margin-right: 4%; font-size: 14px; margin-top: 6px;">Postal Uganda system © 2022</p>
 
-</footer>
+        </footer>
 </body>
 
 </html>

@@ -1,12 +1,46 @@
-<?php
-include 'mail_DB_connect.php';
 
-$retrieve_query = "select fName,lName,gender, email,telnumber,role,username from staff";
+
+<?php
+include "../Check.php";
+$_SESSION['USERNAME']=check_login($con);
+session_start();
+include 'mail_DB_connect.php';
+session_start();
+
+$retrieve_query = "select fname,lname,gender, email,telnumber,role,username from staff";
 
 $execute_query = mysqli_query($con, $retrieve_query);
 
 $fetch = mysqli_fetch_assoc($execute_query);
 ?>
+<?php
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    mysqli_query($conn, "delete from staff where id =$id");
+    header("location:staffRecords.php");
+}
+
+
+
+if (isset($_GET['edit'])) {
+    $id = $_GET['edit'];
+    $retrieve_query = "select fName,lName,gender, email,telnumber,role,username from staff where email= $id";
+
+    $execute_query = mysqli_query($con, $retrieve_query);
+
+    $fetch = mysqli_fetch_assoc($execute_query);
+
+    $username = $fetch['username'];
+    $fName = $fetch['fName'];
+    $lName = $fetch['lName'];
+    $gender = $fetch['gender'];
+    $email = $fetch['email'];;
+    $telnumber = $fetch['telnumber'];
+    $role = $fetch['role'];
+    header("location:createUser.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -81,30 +115,24 @@ $fetch = mysqli_fetch_assoc($execute_query);
         <a href="createUser.php">
             <span><i class='bx bxs-user-account'></i>
             </span> <span style=" margin:4px"> Create user account</a>
-            <div class="nav-item Delivery Progressdropdown">
-            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i
-                        class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span> 
+        <div class="nav-item Delivery Progressdropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span>
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Kampala Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Kampala Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Entebbe Branch
+                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span class="text-dark fw-bold"></span>Entebbe Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></i></span>Jinja Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Jinja Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></i></span>Gulu Branch
+                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Gulu Branch
 
                     </a>
                 </li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Mbarara Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Mbarara Branch
                     </a></li>
             </ul>
         </div>
@@ -119,17 +147,19 @@ $fetch = mysqli_fetch_assoc($execute_query);
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
                 <li><a id="drop" class="dropdown-item  " href="deliveredMails.php"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, );transform: msFilter ; margin:4px">
-                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
-                <path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path>
-            </svg></span>
-                Delivered
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                <path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path>
+                            </svg></span>
+                        Delivered
                         mails
                     </a>
                 </li>
                 <li><a id="drop" class="dropdown-item " href="undeliveredMails.php"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: msFilter;">
-                    <path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z">
+                                <path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z">
 
-                </path><path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"></path></svg></span>
+                                </path>
+                                <path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"></path>
+                            </svg></span>
                         Undelivered
                         mail </a></li>
             </ul>
@@ -149,74 +179,63 @@ $fetch = mysqli_fetch_assoc($execute_query);
                 <h3>Staff Records</h3>
             </div>
         </div>
-   &nbsp;
-   &nbsp;
+        &nbsp;
+        &nbsp;
 
-        <div>
-            <table width="100%"  align="center">
+                    <table width="75%" align="center" class="table table-striped">
+                        <tbody>
+                            <h2 align="center">Staff Records</h2>
+                            <tr bgcolor="#1367EA" class="tr">
+                                <!-- <td>Staff No.</td> -->
+                                <td class="text-white">User name </td>
+                                <td class="text-white">First Name </td>
+                                <td class="text-white">Last Name </td>
+                                <td class="text-white">Gender</td>
+                                <td class="text-white">Email Address</td>
 
-                <tr>
-                    <td >
-                        <table width="75%" align="center" class="table table-striped">
-                            <tbody>
-                                <h2 align="center">Staff Records</h2>
-                                <tr bgcolor="#1367EA"  class="tr">
-                                    <!-- <td>Staff No.</td> -->
-                                    <td class="text-white">User name </td>
-                                    <td class="text-white">First Name </td>
-                                    <td class="text-white">Last Name </td>
-                                    <td class="text-white">Gender</td>
-                                    <td class="text-white">Email Address</td>
-                                    
-                                    <td class="text-white">Phone Number </td>
+                                <td class="text-white">Phone Number </td>
 
-                                    <td class="text-white"> Role</td>
-                                    <!-- <td> Branch Number</td> -->
-                                    <td class="text-white">Edit staff</td>
-                                    <td class="text-white">Remove staff</td>
+                                <td class="text-white"> Role</td>
+                                <!-- <td> Branch Number</td> -->
+                                <td class="text-white">Edit staff</td>
+                                <td class="text-white">Remove staff</td>
 
 
 
+                            </tr>
+                            <?php
+
+                            while ($fetch = mysqli_fetch_assoc($execute_query)) { ?>
+                                <tr bgcolor="#d9dbdb">
+                                    <!-- <td><? // echo $fetch['staffNo']; 
+                                                ?></td> -->
+                                    <td><?php echo $fetch['username']; ?></td>
+                                    <td><?php echo $fetch['fname']; ?></td>
+                                    <td><?php echo $fetch['lname']; ?></td>
+                                    <td><?php echo $fetch['gender']; ?></td>
+                                    <td><?php echo $fetch['email']; ?></td>
+                                    <td><?php echo $fetch['telnumber']; ?></td>
+                                    <td><?php echo $fetch['role']; ?></td>
+                                    <!-- <td><?php //echo $fetch['branchNo']; 
+                                                ?></td> -->
+                                    <td> <a href="../admin/createUser.php?edit=<?php echo $fetch['email']; ?>" $$ message=Update><button type="submit" class="text-uppercase text-white text-sm w100 fw-normal btn btn-info btn3-sm" name="edit">Edit</button> </a> </td>
+                                    <td> <a href="../time.php?delete=<?php echo $fetch['email']; ?>"> <button type="submit" class="text-uppercase text-white text-sm w100 fw-normal btn btn-danger btn3-sm" name="delete">delete</button> </a> </td>
                                 </tr>
-                                <?php
+                            <?php } ?>
 
-                                while ($fetch = mysqli_fetch_assoc($execute_query)) { ?>
-                                    <tr bgcolor="#d9dbdb">
-                                        <!-- <td><?// echo $fetch['staffNo']; ?></td> -->
-                                        <td><?php echo $fetch['username']; ?></td>
-                                        <td><?php echo $fetch['fName']; ?></td>
-                                        <td><?php echo $fetch['lName']; ?></td>
-                                        <td><?php echo $fetch['gender']; ?></td>
-                                        <td><?php echo $fetch['email']; ?></td>
-                                        <td>0<?php echo $fetch['telnumber']; ?></td>
-                                        <td><?php echo $fetch['role']; ?></td>
-                                        <!-- <td><?php //echo $fetch['branchNo']; ?></td> -->
-                                        <td><button type="submit" class="text-uppercase text-white text-sm w100 fw-normal btn btn-info btn3-sm" name="submit">Edit</button> </td>
-                                 <td><button type="submit" class="text-uppercase text-white text-sm w100 fw-normal btn btn-danger btn3-sm" name="submit">delete</button>  </td>
-                                    </tr>
-                                <?php } ?>
-                                
 
-                        </table>
-                        <p>&nbsp;</p>
-                        <p>&nbsp;</p>
-                        <p>&nbsp;</p>
-                        <p>&nbsp;</p>
-                        <p>&nbsp;</p>
-                        <p>&nbsp;</p>
-                </tr>
-                </tbody>
-                <tbody>
-                </tbody>
-            </table>
-        </div>
+                    </table>
+         
+
 
     </div>
     <footer class="footer-user">
 
-<p style="text-align:center; margin-right: 4%; font-size: 14px; margin-top: 6px;">Postal Uganda system © 2022</p>
+        <p style="text-align:center; margin-right: 4%; font-size: 14px; margin-top: 6px;">Postal Uganda system © 2022</p>
 
-</footer>
+    </footer>
 </body>
 
 </html>
+<?php
+include "user.php";

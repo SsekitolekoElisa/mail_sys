@@ -1,4 +1,9 @@
+<?php
 
+include "../Check.php";
+$_SESSION['USERNAME']=check_login($con);
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,16 +36,16 @@ a {
 
         <nav class="navbar nav-expand-sm bg-danger fixed-top navColor">
             <div class="container-fluid ">
-                <a href="courier.php"><span style="font-size:30px;cursor:pointer" >&#9776; Menu</span></a>
+                <a href="admin.php"><span style="font-size:30px;cursor:pointer" >&#9776; Menu</span></a>
                 <ul style="list-style-type: none;padding: 0px;" class="nav-bar">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span class="text-white mx-2">Ahimbisibwe Job</span><img src="../images/img_avatar1.png" alt="profile image" style="width: 40px;" class="rounded-pill "></a><span class="glyphicon glyphicon-align-justify"></span>
+                        <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span class="text-white mx-2"><?php echo $_SESSION['USERNAME']?></span><img src="../images/img_avatar1.png" alt="profile image" style="width: 40px;" class="rounded-pill "></a><span class="glyphicon glyphicon-align-justify"></span>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item glyphicon glyphicon-das " href="admin.php"><i class='bx bxs-dashboard'></i>Darshboard</a>
 
                             </li>
                             <li><a class="dropdown-item  glyphicon glyphicon-log-in" href="Profile.php"><i class='bx bxs-user-detail'></i>Profile</a></li>
-                            <li><a class="dropdown-item glyphicon glyphicon-user" href="../logOut.php"><i class='bx bx-log-out'>Log
+                            <li><a class="dropdown-item glyphicon glyphicon-user" href="logOut.php"><i class='bx bx-log-out'>Log
                                         out</i></a></li>
                         </ul>
                     </li>
@@ -66,7 +71,7 @@ a {
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="courier.php">Dashboard</a></li>
+              <li class="breadcrumb-item"><a href="admin.php">Dashboard</a></li>
               <li class="breadcrumb-item"><a href="Profile.php">Account Profile</a></li>
             </ol>
           </div><!-- /.col -->
@@ -111,7 +116,7 @@ a {
                        alt="User profile picture">
                 </div>
 
-                <h3 class="profile-username text-center">Job  Ahimbisibwe</h3>
+                <h3 class="profile-username text-center"><?php echo $_SESSION['USERNAME']?></h3>
 
                 <p class="text-muted text-center"></p>
 

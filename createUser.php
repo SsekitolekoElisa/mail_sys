@@ -1,3 +1,41 @@
+<?php
+
+include 'mail_DB_connect.php';
+include "../Check.php";
+$_SESSION['USERNAME']=check_login($con);
+session_start();
+
+if( !isset($_GET['edit']))
+{
+    $fetch['fname'] = "";
+    $fetch['lname']= "";
+   $fetch['gender']= "";
+   $fetch['email']= "";
+   $fetch['telnumber']= "";
+    $fetch['role']= "";
+ $fetch['username']= "";
+    $fetch['password']= "";
+  $fetch['branchNo']= "";
+
+}else{
+    $id = $_GET['edit'];
+    
+    $retrieve_query = "select fname,lname,gender,email,telnumber,role,username,password,branchNo from staff where email= '$id'";
+    $execute_query = mysqli_query($con, $retrieve_query);
+    $fetch = mysqli_fetch_assoc($execute_query);
+
+    $fname = $fetch['fname'];
+    $lname = $fetch['lname'];
+    $gender = $fetch['gender'];
+    $email = $fetch['email'];
+    $telnumber = $fetch['telnumber'];
+    $role = $fetch['role'];
+    $username = $fetch['username'];
+    $password = $fetch['password'];
+    $branchNo = $fetch['branchNo'];
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,7 +73,7 @@
     <div class="container-fluid">
 
 
-    <nav class="navbar nav-expand-sm bg-danger fixed-top navColor">
+        <nav class="navbar nav-expand-sm bg-danger fixed-top navColor">
             <div class="container-fluid ">
                 <span style="font-size:30px;cursor:pointer" onclick="openNav();">&#9776; Menu</span>
                 <ul style="list-style-type: none;padding: 0px;" class="nav-bar">
@@ -68,34 +106,28 @@
         <!-- <a class="active" href="#home">Home</a> -->
         <button class=" btn-close " style="padding-right: 40px; color: #fff;" onclick="closeNav();"></button><span style="font-size: 20px;">close menu</span>
         <a href="admin.php" class="active"> <span style="min-width:30px ;"></span><i class='bx bxs-dashboard'>
-                </i> <span style=" margin:4px"> Darshboard</a></span>
+            </i> <span style=" margin:4px"> Darshboard</a></span>
         <a href="createUser.php">
             <span><i class='bx bxs-user-account'></i>
             </span> <span style=" margin:4px"> Create user account</a>
-            <div class="nav-item Delivery Progressdropdown">
-            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i
-                        class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span> 
+        <div class="nav-item Delivery Progressdropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span>
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Kampala Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Kampala Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Entebbe Branch
+                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span class="text-dark fw-bold"></span>Entebbe Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></i></span>Jinja Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Jinja Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></i></span>Gulu Branch
+                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Gulu Branch
 
                     </a>
                 </li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
-                            class="text-dark fw-bold"></span>Mbarara Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Mbarara Branch
                     </a></li>
             </ul>
         </div>
@@ -106,21 +138,23 @@
         <a href="clientsRecords.php" role="button"><span></span><i class='bx bxs-contact'></i></span> <span style=" margin:4px">Clients</a>
         <a href="staffRecords.php"><span><i class='bx bxs-user-detail'></span></i> <span style=" margin:4px">Staff</a>
         <div class="nav-item Delivery Progressdropdown">
-            <a class="nav-link dropdown-toggle "  role="button" data-bs-toggle="dropdown"><span><i class='bx bxs-package'></i></span> <span style=" margin:4px">Delivery Progress
+            <a class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown"><span><i class='bx bxs-package'></i></span> <span style=" margin:4px">Delivery Progress
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
                 <li><a id="drop" class="dropdown-item  " href="deliveredMails.php"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, );transform: msFilter ; margin:4px">
-                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
-                <path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path>
-            </svg></span>
-                Delivered
+                                <path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"></path>
+                                <path d="M9.999 13.587 7.7 11.292l-1.412 1.416 3.713 3.705 6.706-6.706-1.414-1.414z"></path>
+                            </svg></span>
+                        Delivered
                         mails
                     </a>
                 </li>
                 <li><a id="drop" class="dropdown-item " href="undeliveredMails.php"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, 1);transform: msFilter;">
-                    <path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z">
+                                <path d="M9.172 16.242 12 13.414l2.828 2.828 1.414-1.414L13.414 12l2.828-2.828-1.414-1.414L12 10.586 9.172 7.758 7.758 9.172 10.586 12l-2.828 2.828z">
 
-                </path><path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"></path></svg></span>
+                                </path>
+                                <path d="M12 22c5.514 0 10-4.486 10-10S17.514 2 12 2 2 6.486 2 12s4.486 10 10 10zm0-18c4.411 0 8 3.589 8 8s-3.589 8-8 8-8-3.589-8-8 3.589-8 8-8z"></path>
+                            </svg></span>
                         Undelivered
                         mail </a></li>
             </ul>
@@ -141,39 +175,42 @@
             </div>
         </div>
         <div>
-            <form action="user.php" method="post">
+            <form action="user.php" method="post" class="form-control form-control-sm|form-control-lg">
                 <table>
                     <tr>
                         <td>
                     <tr>
                         <td>First name :</td>
-                        <td><input type="text" name="fname" id="name1"></td>
+                        <td><input type="text" name="fname" id="name1" value="<?php echo $fetch['fname']; ?>"></td>
                     </tr>
 
                     <tr>
                         <td>Last name :</td>
-                        <td><input type="text" name="lname" id="name2"></td>
+                        <td><input type="text" name="lname" id="name2" value="<?php echo $fetch['lname']; ?>"></td>
                     </tr>
 
                     <tr>
 
                         <td>Gender :</td>
                         <td>
-                            <input type="radio" name="gender" value="M">Male <br>
-                            <input type="radio" name="gender" value="F">Female
+                            <input type="radio" name="gender" value="M" value="<?php echo $fetch['gender']; ?>">Male <br>
+                            <input type="radio" name="gender" value="F"- value="<?php echo $fetch['gender']; ?>">Female
                         </td>
                     </tr>
                     <tr>
                         <td>Email :</td>
-                        <td><input type="email" name="email" id="EMAIL"></td>
+                        <td><input type="email" name="email" id="EMAIL" value="<?php echo $fetch['email']; ?>"></td>
                     </tr>
                     <tr>
                         <td>Tellphone Number :</td>
-                        <td><input type="phone number" name="telnumber" id="TellNo"></td>
+                        <td><input type="phone number" name="telnumber" id="TellNo" value="<?php echo $fetch['telnumber']; ?>"></td>
                     </tr>
                     <tr>
                         <td>Role:</td>
-                        <td><input type="text" name="role" id="ROLE" default></td>
+                        <td><input type="radio" name="role" value="Admin" value="<?php echo $fetch['role']; ?>">Adminstrater <br>
+                            <input type="radio" name="role" value="Carrier" value="<?php echo $fetch['role']; ?>">Carrier
+                        </td>
+                        <!-- <td><input type="text" name="role" id="ROLE" default></td> -->
                     </tr>
 
                     </tr>
@@ -185,20 +222,34 @@
                         <tr>
                             <td>Username :</td>
                             <td>
-                                <input type="text" name="username" id="user" placeholder="Courier@firstName20">
+                                <input type="text" name="username" id="user" placeholder="role@job80" value="<?php echo $fetch['username']; ?>">
                             </td>
                         </tr>
 
                         <tr>
                             <td>Password :</td>
                             <td>
-                                <input type="password" name="password" id="PASSWORD" placeholder="LastNameGender">
+                                <input type="password" name="password" id="password" placeholder="password" required value="<?php echo $fetch['password']; ?>">
                             </td>
                         </tr>
                         <tr>
-                            <td>Branch Number :</td>
+                            <td> Confirm Password :</td>
                             <td>
-                                <input type="text" name="branchNo" id="BranhNo">
+                                <input type="password" name="cpassword" id="cpassword" placeholder="comfirm password" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Branch Code:</td>
+                            <td>
+                                <select name="branchNo" id="code" required value="<?php echo $fetch['branchNo']; ?>">
+                                    <option>--SELECT BRANCH</option>
+                                    <option name="branchNo" value="4">Kampala</option>
+                                    <option name="branchNo" value="1">Entebbe</option>
+                                    <option name="branchNo" value="3">Jinja</option>
+                                    <option name="branchNo" value="5">Mbarara</option>
+                                    <option name="branchNo" value="2">Gulu</option>
+                                </select>
+
                             </td>
                         </tr>
                     </td>
@@ -207,17 +258,27 @@
 
 
                 </table>
-                <button type="reset" name="reset" value="reset">RESET</button>
-                <button type="submit" name="submit" value="submit">SUBMIT</button>
+                <button type="button" name="reset" value="reset" class="btn btn-danger">RESET</button>
+                <button type="submit" name="submit" value="submit" class="btn btn-info">SUBMIT</button>
             </form>
         </div>
 
     </div>
     <footer class="footer-user">
 
-<p style="text-align:center; margin-right: 4%; font-size: 14px; margin-top: 6px;">Postal Uganda system © 2022</p>
+        <p style="text-align:center; margin-right: 4%; font-size: 14px; margin-top: 6px;">Postal Uganda system © 2022</p>
 
-</footer>
+    </footer>
 </body>
 
 </html>
+
+
+
+
+
+<!-- <?php
+
+// include "user.php";
+// session_start();
+?> -->

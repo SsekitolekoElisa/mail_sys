@@ -1,3 +1,65 @@
+<?php
+include "../Check.php";
+$_SESSION['USERNAME']=check_login($con);
+session_start();
+
+include 'mail_DB_connect.php';
+
+
+if (isset($_POST['submit'])) {
+    $clientNo = "NULL";
+    $pobox = $_POST['pobox'];
+    $lname = $_POST['lname'];
+    $fname = $_POST['fname'];
+    $gender = $_POST['gender'];
+    $email = $_POST['email'];
+    $telnumber = $_POST['telnumber'];
+
+   
+        $insert_query = "INSERT INTO client (  `clientNo`,`boxnumber`, `fname`, `lname`, `gender`, `email`, `telnumber`) 
+    VALUES (  '$clientNo ', '$pobox', '$fname', '$lname', '$gender', '$email', '$telnumber')";
+       
+       $execute_query = mysqli_query($con, $insert_query);
+
+        if (!$execute_query) {
+            // die('Error:' . mysqli_error($con)); 
+            echo '<script>window.alert("ERROR ! Account not created");<\script>';
+            
+        } else {
+            echo '
+            <script> alert("New Account Has Been Created." );
+   <\scritp>';
+   header("location:../admin/addClient.php");
+        }
+    } 
+
+
+
+    if(!isset($_GET['edit'])){
+        $fetch['boxnumber'] = "";
+        $fetch['lname']= "";
+         $fetch['fname']= "";
+        $fetch['gender']= "";
+        $fetch['email']= "";
+        $fetch['telnumber']= "";
+    }else{
+        $id = $_GET['edit'];
+        
+        $retrieve_query = "select boxnumber ,fname,lname,gender,email,telnumber from client where boxnumber= '$id'";
+        $execute_query = mysqli_query($con, $retrieve_query);
+        $fetch = mysqli_fetch_assoc($execute_query);
+    
+        $pobox = $fetch['boxnumber'];
+        $lname = $fetch['lname'];
+        $fname = $fetch['fname'];
+        $gender =$fetch['gender'];
+        $email = $fetch['email'];
+        $telnumber = $fetch['telnumber'];
+    }
+    
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -60,7 +122,7 @@
                 </ul>
             </div>
         </nav>
-    </div>
+    </div> 
 
 
     <!-- The sidebar -->
@@ -68,28 +130,34 @@
         <!-- <a class="active" href="#home">Home</a> -->
         <button class=" btn-close " style="padding-right: 40px; color: #fff;" onclick="closeNav();"></button><span style="font-size: 20px;">close menu</span>
         <a href="admin.php" class="active"> <span style="min-width:30px ;"></span><i class='bx bxs-dashboard'>
-            </i> <span style=" margin:4px"> Darshboard</a></span>
+                </i> <span style=" margin:4px"> Darshboard</a></span>
         <a href="createUser.php">
             <span><i class='bx bxs-user-account'></i>
             </span> <span style=" margin:4px"> Create user account</a>
-        <div class="nav-item Delivery Progressdropdown">
-            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span>
+            <div class="nav-item Delivery Progressdropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown"><span><i
+                        class='bx bx-mail-send'></i></span><span style=" margin:4px"> Add new mails</span> 
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Kampala Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
+                            class="text-dark fw-bold"></span>Kampala Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span class="text-dark fw-bold"></span>Entebbe Branch
+                <li><a id="drop" class="dropdown-item " href="" NewMailAdd.php"><span
+                            class="text-dark fw-bold"></span>Entebbe Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Jinja Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
+                            class="text-dark fw-bold"></i></span>Jinja Branch
 
                     </a></li>
-                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span class="text-dark fw-bold"></i></span>Gulu Branch
+                <li><a id="drop" class="dropdown-item  " href="NewMailAdd.php"><span
+                            class="text-dark fw-bold"></i></span>Gulu Branch
 
                     </a>
                 </li>
-                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span class="text-dark fw-bold"></span>Mbarara Branch
+                <li><a id="drop" class="dropdown-item " href="NewMailAdd.php"><span
+                            class="text-dark fw-bold"></span>Mbarara Branch
                     </a></li>
             </ul>
         </div>
@@ -100,7 +168,7 @@
         <a href="clientsRecords.php" role="button"><span></span><i class='bx bxs-contact'></i></span> <span style=" margin:4px">Clients</a>
         <a href="staffRecords.php"><span><i class='bx bxs-user-detail'></span></i> <span style=" margin:4px">Staff</a>
         <div class="nav-item Delivery Progressdropdown">
-            <a class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown"><span><i class='bx bxs-package'></i></span> <span style=" margin:4px">Delivery Progress
+            <a class="nav-link dropdown-toggle "  role="button" data-bs-toggle="dropdown"><span><i class='bx bxs-package'></i></span> <span style=" margin:4px">Delivery Progress
             </a><span class="glyphicon glyphicon-align-justify"></span>
             <ul class="dropdown-menu">
                 <li><a id="drop" class="dropdown-item  " href="deliveredMails.php"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgba(0, 0, 0, );transform: msFilter ; margin:4px">
@@ -124,7 +192,6 @@
     </div>
 
 
-
     <div class="  align-content-center container-fluid  " id="mycontent" style="float: right; margin: 30px; padding: 70px; width: 1250px; ;">
         <!-- Page content -->
         <div class="col-sm-12">
@@ -135,20 +202,20 @@
             </div>
         </div>
         <div>
-            <form action="user.php" method="post">
+            <form action="" method="post">
                 <table>
                     <tr>
-                
+
                         <td>P.O BOX Number</td>
-                        <td><input type="number" name="pobox" id="pobox"></td>
+                        <td><input type="text" name="pobox" id="pobox" value="<?php echo $fetch['boxnumber']; ?>"></td>
                     <tr>
                         <td>First name :</td>
-                        <td><input type="text" name="fname" id="name1"></td>
+                        <td><input type="text" name="fname" id="name1" value="<?php echo $fetch['fname']; ?>"></td>
                     </tr>
 
                     <tr>
                         <td>Last name :</td>
-                        <td><input type="text" name="lname" id="name2"></td>
+                        <td><input type="text" name="lname" id="name2" value="<?php echo $fetch['lname']; ?>"></td>
                     </tr>
 
                     <tr>
@@ -161,28 +228,32 @@
                     </tr>
                     <tr>
                         <td>Email :</td>
-                        <td><input type="email" name="email" id="EMAIL"></td>
+                        <td><input type="email" name="email" id="EMAIL" value="<?php echo $fetch['email']; ?>"></td>
                     </tr>
                     <tr>
                         <td>Tellphone Number :</td>
-                        <td><input type="phone number" name="telnumber" id="TellNo"></td>
+                        <td><input type="phone number" name="telnumber" id="TellNo" value="<?php echo $fetch['telnumber']; ?>"></td>
                     </tr>
 
 
 
                 </table>
-                <button type="reset" name="reset" value="reset">RESET</button>
-                <button type="submit" name="submit" value="submit">SUBMIT</button>
+                <button type=" button" name="reset" value="reset" class="btn btn-danger">RESET</button>
+                            <button type="submit" name="submit" value="submit" class="btn btn-info">SUBMIT</button>
+
             </form>
         </div>
 
     </div>
-    
+
     <footer class="footer-user">
 
         <p style="text-align:center; margin-right: 4%; font-size: 14px; margin-top: 6px;">Postal Uganda system © 2022</p>
 
     </footer>
-   
+
+
+
+</body>
 
 </html>

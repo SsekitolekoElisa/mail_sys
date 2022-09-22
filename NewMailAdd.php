@@ -1,4 +1,9 @@
-
+<?php
+include "../Check.php";
+$_SESSION['USERNAME']=check_login($con);
+session_start();
+session_start();
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -177,8 +182,8 @@
 
 
                 </table>
-                <button type="reset" name="reset" value="reset">RESET</button>
-                <button type="submit" name="submit" value="submit">SUBMIT</button>
+                <button type="button" name="reset" value="reset" class="btn btn-danger">RESET</button>
+                <button type="submit" name="submit" value="submit" class="btn btn-info">SUBMIT</button>
             </form>
         </div>
         
