@@ -1,12 +1,25 @@
 <?php
+session_start();
 
-//connecting to mail_deliverydb database.
+function check_login($con){
 
-$con = mysqli_connect("localhost","root","","mail_deliverydb");
+if (isset($_SESSION['USERNAME'])){
+   $username = $_SESSION['USERNAME'];
+   $query = "select * from users where username ='USERNAME' limit 1";
 
-if(!$con)
-die('Could not connect to database'.mysqli_connect_error());
 
+   $result = mysqli_query($con, $query);
+
+   if($result && mysqli_num_rows( $result ) > 0){
+    $USERNAME = mysqli_fetch_assoc($result);
+    return $USERNAME;
+   }
+    
+}
+
+ header("location:logIn.php");
+ die;
+}
 
 
 ?>

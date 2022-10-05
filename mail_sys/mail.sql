@@ -1,62 +1,62 @@
+4 
+-- creation of the database for posta Uganda mail delivery
+CREATE DATABASE mail_deliverydb;
 
--- -- creation of the database for posta Uganda mail delivery
--- CREATE DATABASE mail_deliverydb;
+--connecting to db
+USE mail_deliverydb;
 
--- --connecting to db
--- USE mail_deliverydb;
+--creating tables in the databases
 
--- --creating tables in the databases
+--Branch Table
 
--- --Branch Table
+CREATE TABLE branch (
+	branchNo int(5) primary key auto_increment,
+	branch_code char(5) not null unique,
+	brname varchar(20) not null,
+	brlocation varchar(20) not null
+);
 
--- CREATE TABLE branch (
--- 	branchNo int(5) primary key auto_increment,
--- 	branch_code char(5) not null unique,
--- 	brname varchar(20) not null,
--- 	brlocation varchar(20) not null
--- );
+--Client Table
 
--- --Client Table
+CREATE TABLE client (
+	clientNo int primary key auto_increment,
+	boxnumber int not null unique,
+	fname varchar(30) not null,
+	lname varchar(30) not null,
+	gender enum("M", "F") not null,
+	email varchar(30),
+	telnumber varchar(15) not null
+);
 
--- CREATE TABLE client (
--- 	clientNo int primary key auto_increment,
--- 	boxnumber int not null unique,
--- 	fname varchar(30) not null,
--- 	lname varchar(30) not null,
--- 	gender enum("M", "F") not null,
--- 	email varchar(30),
--- 	telnumber varchar(15) not null
--- );
+--Staff Table
 
--- --Staff Table
-
--- CREATE TABLE staff (
--- 	staffNO int(5) primary key auto_increment,
--- 	fname varchar(30) not null,
--- 	lname varchar(30) not null,
--- 	gender enum("M", "F") not null,
--- 	email varchar(30) not null,
--- 	telnumber varchar(15) not null,
--- 	role enum("Admin", "Courier") not null,
--- 	username varchar(30) not null unique,
--- 	password varchar(30) not null,
--- 	branchNo int not null
+CREATE TABLE staff (
+	staffNO int(5) primary key auto_increment,
+	fname varchar(30) not null,
+	lname varchar(30) not null,
+	gender enum("M", "F") not null,
+	email varchar(30) not null,
+	telnumber varchar(15) not null,
+	role enum("Admin", "Courier") not null,
+	username varchar(30) not null unique,
+	password varchar(30) not null,
+	branchNo int not null
 	
--- );
+);
 
 --Mail Table
 
--- CREATE TABLE mail (
--- 	mail_id int primary key auto_increment,
--- 	inTimedate datetime,
--- 	outTimedate datetime,
--- 	deliTimedate datetime,
--- 	deliveredby int(5),
--- 	addedby int(5) not null,
--- 	addedTime timestamp not null,
--- 	branchNo int(5) not null ,
--- 	clientNo int not null
--- );
+CREATE TABLE mail (
+	mail_id int primary key auto_increment,
+	inTimedate datetime,
+	outTimedate datetime,
+	deliTimedate datetime,
+	deliveredby int(5),
+	addedby int(5) not null,
+	addedTime timestamp not null,
+	branchNo int(5) not null ,
+	clientNo int not null
+);
 
 
 
